@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 import getQuoteAroundToken from '../getQuoteAroundToken'
+import getQuoteParts from '@/getQuoteParts';
 
 export default function Home() {
   const [comment, setComment] = useState("@start Our team is excited about the smart thermostat project we're preparing to bring to market. @SeanDurham With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. @mid We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the @near-end launch date! #SmartThermostat #Innovation @end");
   const [token, setToken] = useState("@near-end");
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(["", "", ""]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const result = getQuoteAroundToken(comment, token);
-    setResult(result);
+    setResult(getQuoteParts(result, token));
   };
 
   return (
@@ -55,12 +56,11 @@ export default function Home() {
           <label htmlFor="quote" className="text-lg font-bold">
             Quote
           </label>
-          <textarea
-            value={result}
-            readOnly
-            id="result"
-            className="w-full h-32 p-2 border border-gray-300 rounded"
-          />
+          <div className="w-full h-32 p-2 border border-gray-300 rounded">
+            <span>{result[0]}</span>
+            <span className="text-blue-700 font-bold bg-blue-100 rounded p-1">{result[1]}</span>
+            <span>{result[2]}</span>
+          </div>
           <p>Length: {result.length}</p>
         </div>
       </div>
