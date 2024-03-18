@@ -8,6 +8,7 @@ export default function Home() {
   const [comment, setComment] = useState("@start Our team is excited about the smart thermostat project we're preparing to bring to market. @SeanDurham With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. @mid We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the @near-end launch date! #SmartThermostat #Innovation @end");
   const [token, setToken] = useState("@near-end");
   const [result, setResult] = useState(["", "", ""]);
+  const charCount = result.reduce((sum, member) => sum + member.length, 0);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,7 +62,7 @@ export default function Home() {
             <span className="text-blue-700 font-bold bg-blue-100 rounded p-1">{result[1]}</span>
             <span>{result[2]}</span>
           </div>
-          <p>Length: {result.length}</p>
+          <p>Length: {charCount}</p>
         </div>
       </div>
     </main>
