@@ -5,8 +5,9 @@
  * @param {string} token - The token to search for within the comment.
  * @returns {string} - The relevant portion of the comment containing the token.
  */
-function getRelevantComment(comment, token) {
+function getQuoteAroundToken(comment, token) {
     const maxLength = 150;
+    const minLength = 120;
     const tokenIndex = comment.indexOf(token);
 
     if (tokenIndex === -1) {
@@ -14,11 +15,17 @@ function getRelevantComment(comment, token) {
     }
 
     const tokenLength = token.length;
-    const startIndex = Math.max(0, tokenIndex - Math.floor((maxLength - tokenLength) / 2));
+    let startIndex = Math.max(0, tokenIndex - Math.floor((maxLength - tokenLength) / 2));
     const endIndex = Math.min(comment.length, startIndex + maxLength);
 
     let relevantComment = comment.substring(startIndex, endIndex);
-    console.log(relevantComment.length)
+    console.log("Initial length: ", relevantComment.length)
+
+    if (relevantComment.length < minLength) {
+        startIndex = Math.max(0, endIndex - maxLength);
+        relevantComment = comment.substring(startIndex, endIndex);a
+        console.log("Adjusted length: ", relevantComment.length)
+    }
 
     if (startIndex > 0) {
         const firstSpaceIndex = relevantComment.indexOf(' ');
