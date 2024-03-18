@@ -19,12 +19,10 @@ export default function getQuoteAroundToken(comment, token) {
     const endIndex = Math.min(comment.length, startIndex + maxLength);
 
     let relevantComment = comment.substring(startIndex, endIndex);
-    console.log("Initial length: ", relevantComment.length)
 
     if (relevantComment.length < minLength) {
         startIndex = Math.max(0, endIndex - maxLength);
         relevantComment = comment.substring(startIndex, endIndex);
-        console.log("Adjusted length: ", relevantComment.length)
     }
 
     if (startIndex > 0) {
