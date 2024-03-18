@@ -58,9 +58,9 @@ export default function Home() {
             Quote
           </label>
           <div className="w-full h-32 p-2 border border-gray-300 rounded">
-            <span>{result[0]}</span>
-            <span className="text-blue-700 font-bold bg-blue-100 rounded p-1">{result[1]}</span>
-            <span>{result[2]}</span>
+            {result[0] && <span>{result[0]}</span>}
+            {result[1] && <span className="text-blue-700 font-bold bg-blue-100 rounded p-1">{result[1]}</span>}
+            {result[2] && <span>{result[2]}</span>}
           </div>
           <p>Length: {charCount}</p>
         </div>

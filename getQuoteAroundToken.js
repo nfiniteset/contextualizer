@@ -10,13 +10,14 @@ export default function getQuoteAroundToken(comment, token) {
     const minLength = 120;
     const tokenIndex = comment.indexOf(token);
 
-    if (tokenIndex === -1) {
-        return '';
-    }
-
     const tokenLength = token.length;
     let startIndex = Math.max(0, tokenIndex - Math.floor((maxLength - tokenLength) / 2));
-    const endIndex = Math.min(comment.length, startIndex + maxLength);
+    let endIndex = Math.min(comment.length, startIndex + maxLength);
+
+    if (tokenIndex === -1) {
+        startIndex = 0;
+        endIndex = maxLength;
+    }
 
     let relevantComment = comment.substring(startIndex, endIndex);
 
