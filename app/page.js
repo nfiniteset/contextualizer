@@ -88,7 +88,7 @@ export default function Home() {
         <div className="flex-col flex-none">
           <div className="relative flex flex-col items-center" width="600" height="724">
             <Image src="/Mention.png" alt="Mention" width="600" height="724" />
-            <div style={{top: "352px", left: "69px", width: "492px", color: "#6D6E6F", fontSize: "14px", lineHeight: "22px", border: "none"}} className="p-0 font-sans font-normal absolute w-full h-32 p-2 border border-gray-300 rounded">
+            <div style={{top: "314px", left: "68px", width: "492px", color: "#6D6E6F", fontSize: "14px", lineHeight: "22px", border: "none"}} className="p-0 font-sans font-normal absolute w-full h-32 p-2 border border-gray-300 rounded">
               {result[0] && <span>{result[0]}</span>}
               {result[1] && <span style={{color: "#3F6AC4"}}>{result[1]}</span>}
               {result[2] && <span>{result[2]}</span>}
