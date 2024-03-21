@@ -7,11 +7,11 @@ import Image from 'next/image';
 
 const sampleToken = "@CoralMeier";
 const samples = {
-  start: "@CoralMeier, our team is excited about the smart thermostat project we're preparing to bring to market. With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the launch date! #SmartThermostat #Innovation",
-  nearStart: "Our team is excited about the smart thermostat project @CoralMeier we're preparing to bring to market. With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the launch date! #SmartThermostat #Innovation",
-  middle: "Our team is excited about the smart thermostat project we're preparing to bring to market. With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. @CoralMeier, ee've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the launch date! #SmartThermostat #Innovation",
-  nearEnd: "Our team is excited about the smart thermostat project we're preparing to bring to market. With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates @CoralMeier as we get closer to the launch date! #SmartThermostat #Innovation",
-  end: "Our team is excited about the smart thermostat project we're preparing to bring to market. With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the launch date! #SmartThermostat #Innovation cc: @CoralMeier"
+  start: "@CoralMeier, here's a progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
+  nearStart: "Progress update, FYI leads (especially @CoralMeier!): Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
+  middle: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval (Head's up @CoralMeier!). Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
+  nearEnd: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? @CoralMeier, your feedback will be crucial for final adjustments.",
+  end: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments. @CoralMeier"
 }
 
 function SampleButton({label, ...props}) {
@@ -19,9 +19,10 @@ function SampleButton({label, ...props}) {
 }
 
 export default function Home() {
-  const [comment, setComment] = useState("@start Our team is excited about the smart thermostat project we're preparing to bring to market. @SeanDurham With its advanced features and intuitive interface, it will revolutionize the way people control their home temperature. @mid We've put in countless hours of research and development to ensure the highest level of energy efficiency and user comfort. Stay tuned for updates as we get closer to the @near-end launch date! #SmartThermostat #Innovation @end");
-  const [token, setToken] = useState("@near-end");
-  const [result, setResult] = useState(["", "", ""]);
+  const [comment, setComment] = useState(samples.start);
+  const [token, setToken] = useState(sampleToken);
+  const initialResult = getQuoteAroundToken(comment, token);
+  const [result, setResult] = useState(getQuoteParts(initialResult, token));
   const charCount = result.reduce((sum, member) => sum + member.length, 0);
 
   function handleSampleClick(event) {
@@ -42,7 +43,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-stretch p-24 font-mono text-sm">
       <div className="mb-6">
         <h1 className="text-lg font-bold">Contextualizer</h1>
-        <p>This reveals a contextual quote around a token of your choosing. It tries to keep the token near the middle of the quote, but will try even harder to return between 120–150 characters. It adds elipses when it cuts off text, it cuts off at word breaks and trims whitespace.</p>
+        <p>This reveals a contextual quote around a token of your choosing (E.g. a mention). It tries to keep the token near the middle of the quote, but will try even harder to return between 120–150 characters. It adds elipses when it cuts off text, it cuts off at word breaks and trims whitespace.</p>
       </div>
       <div className="flex">
         <form className="flex flex-1 flex-col space-y-4 w-full pr-6" onSubmit={handleSubmit}>
@@ -65,6 +66,7 @@ export default function Home() {
               className="w-full h-32 p-2 border border-gray-300 rounded"
               value={comment}
               onChange={(event) => setComment(event.target.value)}
+              style={{fieldSizing: "content"}}
             />
           </div>
           <div>
