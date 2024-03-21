@@ -46,7 +46,7 @@ export default function Home() {
       </div>
       <div className="flex">
         <form className="flex flex-1 flex-col space-y-6 w-full pr-6" onSubmit={handleSubmit}>
-          <h1 className="text-xl font-bold">Contextualizer</h1>
+          <h1 className="text-xl font-bold">Show the relevant part of a comment</h1>
           <p>This shows a relevant part (or &ldquo;token&rdquo;) of a larger body of text. E.g. It can show the part of a comment in which you were mentioned.</p>
           <p>It tries to keep the token near the middle of the quote, but will try even harder to return between 120–150 characters. It adds elipses when it cuts off text, it cuts off at word breaks and trims whitespace.</p>
           <p className="pb-3 font-bold">Try the samples or enter your own comment and token.</p>
