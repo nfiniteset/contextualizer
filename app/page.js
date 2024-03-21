@@ -11,11 +11,11 @@ const samples = {
   nearStart: "Progress update, FYI leads (especially @CoralMeier!): Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
   middle: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval (Head's up @CoralMeier!). Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
   nearEnd: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? @CoralMeier, your feedback will be crucial for final adjustments.",
-  end: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments. @CoralMeier"
+  end: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments @CoralMeier"
 }
 
 function SampleButton({label, ...props}) {
-  return <button className="rounded py-2 px-4 mr-3 border-1 border-gray-700 bg-gray-300" {...props}>{label}</button>;
+  return <button style={{ border: "solid 1px #CFCBCB", background: "white"}} className="rounded py-2 px-4 mr-3" {...props}>{label}</button>;
 }
 
 export default function Home() {
@@ -42,11 +42,14 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-stretch p-24 font-mono text-sm">
       <div className="mb-6">
-        <h1 className="text-lg font-bold">Contextualizer</h1>
-        <p>This reveals a contextual quote around a token of your choosing (E.g. a mention). It tries to keep the token near the middle of the quote, but will try even harder to return between 120–150 characters. It adds elipses when it cuts off text, it cuts off at word breaks and trims whitespace.</p>
+        
       </div>
       <div className="flex">
-        <form className="flex flex-1 flex-col space-y-4 w-full pr-6" onSubmit={handleSubmit}>
+        <form className="flex flex-1 flex-col space-y-6 w-full pr-6" onSubmit={handleSubmit}>
+          <h1 className="text-xl font-bold">Contextualizer</h1>
+          <p>This shows a relevant part (or "token") of a larger body of text. E.g. It can show the part of a comment in which you were mentioned.</p>
+          <p>It tries to keep the token near the middle of the quote, but will try even harder to return between 120–150 characters. It adds elipses when it cuts off text, it cuts off at word breaks and trims whitespace.</p>
+          <p className="pb-3 font-bold">Try the samples or enter your own comment and token.</p>
           <label htmlFor="comment" className="text-lg font-bold">
             Samples
           </label>
@@ -84,6 +87,7 @@ export default function Home() {
           <button type="submit" className="px-4 py-2 text-lg font-bold bg-blue-500 text-white rounded">
             Quote around token
           </button>
+          <p style={{color: "#6D6E6F"}} className="mt-3">Length: {charCount}</p>
         </form>
         <div className="flex-col flex-none">
           <div className="relative flex flex-col items-center" width="600" height="724">
@@ -93,7 +97,6 @@ export default function Home() {
               {result[1] && <span style={{color: "#3F6AC4"}}>{result[1]}</span>}
               {result[2] && <span>{result[2]}</span>}
             </div>
-            <p className="mt-3">Length: {charCount}</p>
           </div>
         </div>
       </div>
