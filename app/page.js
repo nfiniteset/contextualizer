@@ -7,11 +7,11 @@ import Image from 'next/image';
 
 const sampleToken = "@CoralMeier";
 const samples = {
-  start: "@CoralMeier, here's a progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
-  nearStart: "Progress update, FYI leads (especially @CoralMeier!): Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
-  middle: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval (Head's up @CoralMeier!). Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
-  nearEnd: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? @CoralMeier, your feedback will be crucial for final adjustments.",
-  end: "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments @CoralMeier"
+  "Start": "@CoralMeier, here's a progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
+  "Near start": "Progress update, FYI leads (especially @CoralMeier!): Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
+  "Middle": "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval (Head's up @CoralMeier!). Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments.",
+  "Near end": "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? @CoralMeier, your feedback will be crucial for final adjustments.",
+  "End": "Progress update: Completed the rough cut and initiated color correction, which is now 70% done. We hit a minor snag with audio sync in Interview B but managed to resolve it efficiently. Also, the motion graphics template is in, but we're awaiting final approval. Noticed some discrepancies in the proxy files for the drone shots; re-encoding those to ensure smooth editing. Can you confirm the timeline for the remaining color grading and review the updated drone footage? Your feedback will be crucial for final adjustments @CoralMeier"
 }
 
 function SampleButton({label, ...props}) {
@@ -19,7 +19,7 @@ function SampleButton({label, ...props}) {
 }
 
 export default function Home() {
-  const [comment, setComment] = useState(samples.start);
+  const [comment, setComment] = useState(samples["Start"]);
   const [token, setToken] = useState(sampleToken);
   const initialResult = getQuoteAroundToken(comment, token);
   const [result, setResult] = useState(getQuoteParts(initialResult, token));
@@ -41,9 +41,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-stretch p-24 font-mono text-sm">
-      <div className="mb-6">
-        
-      </div>
       <div className="flex">
         <form className="flex flex-1 flex-col space-y-6 w-full pr-6" onSubmit={handleSubmit}>
           <h1 className="text-xl font-bold">Show the relevant part of a comment</h1>
@@ -54,11 +51,7 @@ export default function Home() {
             Samples
           </label>
           <div className="flex">
-            <SampleButton label="Start" value="start" onClick={handleSampleClick} />
-            <SampleButton label="Near start" value="nearStart" onClick={handleSampleClick} />
-            <SampleButton label="Middle" value="middle" onClick={handleSampleClick} />
-            <SampleButton label="Near end" value="nearEnd" onClick={handleSampleClick} />
-            <SampleButton label="End" value="end" onClick={handleSampleClick} />
+            {Object.keys(samples).map((label) => (<SampleButton key={label} label={label} value={label} onClick={handleSampleClick} />))}
           </div>
           <div>
             <label htmlFor="comment" className="text-lg font-bold">
