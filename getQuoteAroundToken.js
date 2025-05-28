@@ -29,14 +29,14 @@ export default function getQuoteAroundToken(comment, token) {
     if (startIndex > 0) {
         const firstSpaceIndex = relevantComment.indexOf(' ');
         if (firstSpaceIndex !== -1) {
-            relevantComment = '...' + relevantComment.substring(firstSpaceIndex).trim();
+            relevantComment = `...${relevantComment.substring(firstSpaceIndex).trim()}`;
         }
     }
 
     if (endIndex < comment.length) {
         const lastSpaceIndex = relevantComment.lastIndexOf(' ');
         if (lastSpaceIndex !== -1) {
-            relevantComment = relevantComment.substring(0, lastSpaceIndex).trim() + '...';
+            relevantComment = `${relevantComment.substring(0, lastSpaceIndex).trim()}...`;
         }
     }
 
