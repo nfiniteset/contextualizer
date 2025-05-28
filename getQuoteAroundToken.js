@@ -10,7 +10,7 @@ export default function getQuoteAroundToken(comment, token) {
     const minLength = 120;
     const tokenIndex = comment.indexOf(token);
 
-    // If the token is not found, return the first 150 characters of the comment
+    // If the token is not found, return the first part of the comment
     if (tokenIndex === -1) {
         return `${comment.substring(0, maxLength)}…`;
     }
@@ -19,31 +19,30 @@ export default function getQuoteAroundToken(comment, token) {
     let startIndex = Math.max(0, tokenIndex - Math.floor((maxLength - tokenLength) / 2));
     let endIndex = Math.min(comment.length, startIndex + maxLength);
 
-    if (tokenIndex === -1) {
-        startIndex = 0;
-        endIndex = maxLength;
+    let quote = comment.substring(startIndex, endIndex);
+
+    // If quote is shorter than the max length, index from the end of the comment
+    if (quote.length < maxLength) {
+        startIndex = comment.length - maxLength;
+        endIndex = comment.length;
+        quote = comment.substring(startIndex, endIndex);
     }
 
-    let relevantComment = comment.substring(startIndex, endIndex);
-
-    if (relevantComment.length < minLength) {
-        startIndex = Math.max(0, endIndex - maxLength);
-        relevantComment = comment.substring(startIndex, endIndex);
-    }
-
+    // If the start of the comment is truncated, add an ellipsis
     if (startIndex > 0) {
-        const firstSpaceIndex = relevantComment.indexOf(' ');
+        const firstSpaceIndex = quote.indexOf(' ');
         if (firstSpaceIndex !== -1) {
-            relevantComment = `…${relevantComment.substring(firstSpaceIndex).trim()}`;
+            quote = `${quote.substring(firstSpaceIndex).trim().replace(/^./, '…')}`;
         }
     }
 
+    // If the end of the comment is truncated, add an ellipsis
     if (endIndex < comment.length) {
-        const lastSpaceIndex = relevantComment.lastIndexOf(' ');
+        const lastSpaceIndex = quote.lastIndexOf(' ');
         if (lastSpaceIndex !== -1) {
-            relevantComment = `${relevantComment.substring(0, lastSpaceIndex).trim()}…`;
+            quote = `${quote.substring(0, lastSpaceIndex).trim()}…`;
         }
     }
 
-    return relevantComment;
+    return quote;
 }
