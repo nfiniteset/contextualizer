@@ -10,6 +10,11 @@ export default function getQuoteAroundToken(comment, token) {
     const minLength = 120;
     const tokenIndex = comment.indexOf(token);
 
+    // If the token is not found, return the first 150 characters of the comment
+    if (tokenIndex === -1) {
+        return `${comment.substring(0, maxLength)}…`;
+    }
+
     const tokenLength = token.length;
     let startIndex = Math.max(0, tokenIndex - Math.floor((maxLength - tokenLength) / 2));
     let endIndex = Math.min(comment.length, startIndex + maxLength);
@@ -29,14 +34,14 @@ export default function getQuoteAroundToken(comment, token) {
     if (startIndex > 0) {
         const firstSpaceIndex = relevantComment.indexOf(' ');
         if (firstSpaceIndex !== -1) {
-            relevantComment = `...${relevantComment.substring(firstSpaceIndex).trim()}`;
+            relevantComment = `…${relevantComment.substring(firstSpaceIndex).trim()}`;
         }
     }
 
     if (endIndex < comment.length) {
         const lastSpaceIndex = relevantComment.lastIndexOf(' ');
         if (lastSpaceIndex !== -1) {
-            relevantComment = `${relevantComment.substring(0, lastSpaceIndex).trim()}...`;
+            relevantComment = `${relevantComment.substring(0, lastSpaceIndex).trim()}…`;
         }
     }
 
